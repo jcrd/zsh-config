@@ -142,6 +142,29 @@ for f in $ZSH_CONFIG_DIR/aliases/*(N); do
     read-alias-file "$f"
 done
 
+plugins=(
+    fast-syntax-highlighting.plugin.zsh
+)
+
+declare -A FAST_HIGHLIGHT_STYLES
+
+FAST_HIGHLIGHT_STYLES[unknown-token]='fg=red'
+FAST_HIGHLIGHT_STYLES[single-hyphen-option]='none'
+FAST_HIGHLIGHT_STYLES[double-hyphen-option]='none'
+FAST_HIGHLIGHT_STYLES[path]='fg=none,underline'
+FAST_HIGHLIGHT_STYLES[path-to-dir]='fg=blue,underline'
+FAST_HIGHLIGHT_STYLES[subtle-bg]='underline'
+
+# load plugins
+for f in "${plugins[@]}"; do
+    cond-source $ZSH_CONFIG_DIR/plugins/"${f%%.*}"/"$f"
+done
+unset f
+
+# disable fsh whatis chroma
+# see https://github.com/zdharma/fast-syntax-highlighting/issues/135
+export FAST_HIGHLIGHT[whatis_chroma_type]=0
+
 # recompile
 autoload -Uz zrecompile
 # compile into ~/.zcompdump.zwc if newer
