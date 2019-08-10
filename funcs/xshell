@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+if [[ $# -eq 0 ]]; then
+    echo 'usage: xshell DISPLAY' >&2
+    return 2
+fi
+
+DISPLAY="$1" "$SHELL"

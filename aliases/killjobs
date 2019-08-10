@@ -1,0 +1,1 @@
+kill $(jobs | grep -Po '\[\d+\]' | sed -E 's/\[(.+)\]/%\1/')

@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+[[ $# -eq 0 ]] && { echo 'usage: rmalias ALIAS' >&2; return 2 }
+
+rm -v $ZSH_CONFIG_DIR/aliases/"$1"
