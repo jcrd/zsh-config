@@ -122,9 +122,6 @@ zle -N edit-command-line
 
 bindkey '^E' edit-command-line
 
-# located in /usr/share/fzf/shell on fedora
-cond-source /usr/share/fzf/{,shell/}key-bindings.zsh
-
 # make fpath unique
 typeset -U fpath
 fpath=(
@@ -144,6 +141,7 @@ done
 
 plugins=(
     fast-syntax-highlighting.plugin.zsh
+    zsh-fzy.plugin.zsh
 )
 
 declare -A FAST_HIGHLIGHT_STYLES
@@ -160,6 +158,10 @@ for f in "${plugins[@]}"; do
     cond-source $ZSH_CONFIG_DIR/plugins/"${f%%.*}"/"$f"
 done
 unset f
+
+bindkey '\ec' fzy-cd-widget
+bindkey '^T' fzy-file-widget
+bindkey '^R' fzy-history-widget
 
 # disable fsh whatis chroma
 # see https://github.com/zdharma/fast-syntax-highlighting/issues/135
