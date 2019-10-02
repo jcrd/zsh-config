@@ -2,14 +2,9 @@
 
 export ZSH_CONFIG_DIR=~/.config/zsh
 export ZSH_LIB_DIR=$ZSH_CONFIG_DIR/lib
+export ZSH_RUN_DIR=$ZSH_CONFIG_DIR/run
 
 source $ZSH_LIB_DIR/common.zsh
-
-cond-source() {
-    for f in $@; do
-        [[ -e "$f" ]] && { source "$f"; break }
-    done
-}
 
 # history
 HISTFILE=~/.zsh_history
@@ -125,47 +120,30 @@ bindkey '^E' edit-command-line
 # make fpath unique
 typeset -U fpath
 fpath=(
-    ~/.config/zsh/funcs
+    $ZSH_RUN_DIR/funcs
     $fpath
 )
 
 # load functions
-for f in $ZSH_CONFIG_DIR/funcs/*(N:t); do
+for f in $ZSH_RUN_DIR/funcs/*(N:t); do
     autoload "$f"
 done
 
 # load aliases
-for f in $ZSH_CONFIG_DIR/aliases/*(N); do
+for f in $ZSH_RUN_DIR/aliases/*(N); do
     read-alias-file "$f"
 done
 
-plugins=(
-    fast-syntax-highlighting.plugin.zsh
-    zsh-fzy.plugin.zsh
-)
-
-declare -A FAST_HIGHLIGHT_STYLES
-
-FAST_HIGHLIGHT_STYLES[unknown-token]='fg=red'
-FAST_HIGHLIGHT_STYLES[single-hyphen-option]='none'
-FAST_HIGHLIGHT_STYLES[double-hyphen-option]='none'
-FAST_HIGHLIGHT_STYLES[path]='fg=none,underline'
-FAST_HIGHLIGHT_STYLES[path-to-dir]='fg=blue,underline'
-FAST_HIGHLIGHT_STYLES[subtle-bg]='underline'
-
 # load plugins
-for f in "${plugins[@]}"; do
-    cond-source $ZSH_CONFIG_DIR/plugins/"${f%%.*}"/"$f"
+for f in $ZSH_RUN_DIR/plugins/*(N); do
+    source "$f/${f##*/}.plugin.zsh"
+done
+
+# source files
+for f in $ZSH_RUN_DIR/files/*.zsh(N); do
+    source "$f"
 done
 unset f
-
-bindkey '\ec' fzy-cd-widget
-bindkey '^T' fzy-file-widget
-bindkey '^R' fzy-history-widget
-
-# disable fsh whatis chroma
-# see https://github.com/zdharma/fast-syntax-highlighting/issues/135
-export FAST_HIGHLIGHT[whatis_chroma_type]=0
 
 # recompile
 autoload -Uz zrecompile

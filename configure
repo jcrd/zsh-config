@@ -1,0 +1,85 @@
+#!/bin/zsh
+
+ROOT=../..
+
+link() {
+    ln -sv "$@"
+}
+
+os() {
+    [[ -n "$ID" && "$1" == "$ID" ]]
+}
+
+cmd() {
+    r=0
+    for c in "$@"; do
+        command -v "$c" > /dev/null
+        r=$((r+$?))
+    done
+    return $r
+}
+
+if [[ -e run ]]; then
+    rm -r run
+fi
+
+mkdir -p run/{aliases,funcs,plugins,files}
+
+if [[ -e /etc/os-release ]]; then
+    source /etc/os-release
+else
+    echo 'W: /etc/os-release not found' >&2
+fi
+
+# aliases
+for i in aliases/*; do
+    link "$ROOT/$i" run/"$i"
+done
+
+if cmd exa; then
+    echo exa > run/aliases/ls
+    echo l -l --git > run/aliases/ll
+else
+    echo l -l > run/aliases/ll
+fi
+
+if cmd bat; then
+    echo bat > run/aliases/cat
+fi
+
+if cmd colordiff; then
+    echo colordiff > run/aliases/diff
+fi
+
+# functions
+for i in funcs/*; do
+    link "$ROOT/$i" run/"$i"
+done
+
+# os-specific
+for i in os/*; do
+    if os "${i#os/}"; then
+        for j in "$i"/*/*; do
+            link "$ROOT/$j" run/"${j#$i/}"
+        done
+        unset j
+    fi
+done
+
+unset i
+
+# plugins
+git submodule update --init plugins/fast-syntax-highlighting
+link "$ROOT"/plugins/fast-syntax-highlighting \
+    run/plugins/fast-syntax-highlighting
+link "$ROOT"/files/fsh.zsh run/files/fsh.zsh
+
+if cmd fzy; then
+    git submodule update --init plugins/zsh-fzy
+    link "$ROOT"/plugins/zsh-fzy run/plugins/zsh-fzy
+    link "$ROOT"/files/fzy.zsh run/files/fzy.zsh
+fi
+
+# link to home
+link -f "$PWD"/zshrc ~/.zshrc
+link -f "$PWD"/zshenv ~/.zshenv
