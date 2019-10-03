@@ -1,10 +1,7 @@
 #!/bin/zsh
 
 export ZSH_CONFIG_DIR=~/.config/zsh
-export ZSH_LIB_DIR=$ZSH_CONFIG_DIR/lib
 export ZSH_RUN_DIR=$ZSH_CONFIG_DIR/run
-
-source $ZSH_LIB_DIR/common.zsh
 
 # history
 HISTFILE=~/.zsh_history
@@ -131,7 +128,7 @@ done
 
 # load aliases
 for f in $ZSH_RUN_DIR/aliases/*(N); do
-    read-alias-file "$f"
+    alias "$f:t"="$(< "$f")"
 done
 
 # load plugins
