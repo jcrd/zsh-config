@@ -1,9 +1,7 @@
 #!/bin/zsh
 
-ROOT=../..
-
 link() {
-    ln -sv "$@"
+    ln -snfv "$PWD/$1" "$2"
 }
 
 os() {
@@ -33,7 +31,7 @@ fi
 
 # aliases
 for i in aliases/*; do
-    link "$ROOT/$i" run/"$i"
+    link "$i" run/"$i"
 done
 
 if cmd exa; then
@@ -53,14 +51,14 @@ fi
 
 # functions
 for i in funcs/*; do
-    link "$ROOT/$i" run/"$i"
+    link "$i" run/"$i"
 done
 
 # os-specific
 for i in os/*; do
     if os "${i#os/}"; then
         for j in "$i"/*/*; do
-            link "$ROOT/$j" run/"${j#$i/}"
+            link "$j" run/"${j#$i/}"
         done
         unset j
     fi
@@ -70,17 +68,16 @@ unset i
 
 # plugins
 git submodule update --init plugins/fast-syntax-highlighting
-link "$ROOT"/plugins/fast-syntax-highlighting \
-    run/plugins/fast-syntax-highlighting
-link "$ROOT"/files/fsh.zsh run/files/fsh.zsh
+link plugins/fast-syntax-highlighting run/plugins/fast-syntax-highlighting
+link files/fsh.zsh run/files/fsh.zsh
 
 if cmd fzy; then
     git submodule update --init plugins/zsh-fzy
-    link "$ROOT"/plugins/zsh-fzy run/plugins/zsh-fzy
-    link "$ROOT"/files/fzy.zsh run/files/fzy.zsh
+    link plugins/zsh-fzy run/plugins/zsh-fzy
+    link files/fzy.zsh run/files/fzy.zsh
 fi
 
 # link to home
-link -f "$PWD"/zshrc ~/.zshrc
-link -f "$PWD"/zshenv ~/.zshenv
-link -f "$PWD"/zshenv ~/.xprofile
+link zshrc ~/.zshrc
+link zshenv ~/.zshenv
+link zshenv ~/.xprofile
