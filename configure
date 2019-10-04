@@ -83,3 +83,4 @@ fi
 # link to home
 link -f "$PWD"/zshrc ~/.zshrc
 link -f "$PWD"/zshenv ~/.zshenv
+link -f "$PWD"/zshenv ~/.xprofile
