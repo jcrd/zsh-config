@@ -80,4 +80,7 @@ fi
 # link to home
 link zshrc ~/.zshrc
 link zshenv ~/.zshenv
-link zshenv ~/.xprofile
+
+if [[ -e /etc/systemd/system/display-manager.service ]]; then
+    link zshenv ~/.xprofile
+fi
