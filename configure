@@ -17,6 +17,12 @@ cmd() {
     return $r
 }
 
+setup_plugin() {
+    git submodule update --init plugins/"$1"
+    link plugins/"$1" run/plugins/"$1"
+    [[ -n "$2" ]] && link files/"$2".zsh run/files/"$2".zsh
+}
+
 if [[ -e run ]]; then
     rm -r run
 fi
@@ -67,14 +73,10 @@ done
 unset i
 
 # plugins
-git submodule update --init plugins/fast-syntax-highlighting
-link plugins/fast-syntax-highlighting run/plugins/fast-syntax-highlighting
-link files/fsh.zsh run/files/fsh.zsh
+setup_plugin fast-syntax-highlighting fsh
 
 if cmd fzy; then
-    git submodule update --init plugins/zsh-fzy
-    link plugins/zsh-fzy run/plugins/zsh-fzy
-    link files/fzy.zsh run/files/fzy.zsh
+    setup_plugin zsh-fzy fzy
 fi
 
 # link to home
