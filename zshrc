@@ -3,6 +3,12 @@
 export ZSH_CONFIG_DIR=~/.config/zsh
 export ZSH_RUN_DIR=$ZSH_CONFIG_DIR/run
 
+cond-source() {
+    for f in $@; do
+        [[ -e "$f" ]] && { source "$f"; break }
+    done
+}
+
 # history
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
