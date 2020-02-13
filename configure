@@ -75,10 +75,6 @@ unset i
 # plugins
 setup_plugin fast-syntax-highlighting fsh
 
-if cmd fzy; then
-    setup_plugin zsh-fzy fzy
-fi
-
 # link to home
 link zshrc ~/.zshrc
 link zshenv ~/.zshenv
