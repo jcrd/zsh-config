@@ -114,6 +114,9 @@ zle -N edit-command-line
 
 bindkey '^E' edit-command-line
 
+# located in /usr/share/fzf/shell on fedora
+cond-source /usr/share/fzf/{,shell/}key-bindings.zsh
+
 # make fpath unique
 typeset -U fpath
 fpath=(
