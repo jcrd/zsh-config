@@ -21,7 +21,3 @@ export GPG_TTY="$(tty)"
 export MAKEFLAGS="-j$(nproc)"
 export ABDUCO_CMD="$SHELL"
 export QT_QPA_PLATFORMTHEME=gtk2
-
-export FZF_DEFAULT_COMMAND='fd'
-export FZF_CTRL_T_COMMAND='fd -t f'
-export FZF_ALT_C_COMMAND='fd -t d'
