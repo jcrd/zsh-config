@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 export ZSH_CONFIG_DIR=~/.config/zsh
-export ZSH_RUN_DIR=$ZSH_CONFIG_DIR/run
+export ZSH_DATA_DIR="$XDG_DATA_HOME"/zsh
 
 cond-source() {
     for f in $@; do
@@ -126,27 +126,27 @@ cond-source /usr/share/fzf/{,shell/}key-bindings.zsh
 # make fpath unique
 typeset -U fpath
 fpath=(
-    $ZSH_RUN_DIR/funcs
+    "$ZSH_DATA_DIR"/funcs
     $fpath
 )
 
 # load functions
-for f in $ZSH_RUN_DIR/funcs/*(N:t); do
+for f in "$ZSH_DATA_DIR"/funcs/*(N:t); do
     autoload "$f"
 done
 
 # load aliases
-for f in $ZSH_RUN_DIR/aliases/*(N); do
+for f in "$ZSH_DATA_DIR"/aliases/*(N); do
     alias "$f:t"="$(< "$f")"
 done
 
 # load plugins
-for f in $ZSH_RUN_DIR/plugins/*(N); do
+for f in "$ZSH_DATA_DIR"/plugins/*(N); do
     source "$f/${f##*/}.plugin.zsh"
 done
 
 # source files
-for f in $ZSH_RUN_DIR/files/*.zsh(N); do
+for f in "$ZSH_DATA_DIR"/files/*.zsh(N); do
     source "$f"
 done
 unset f

@@ -1,11 +1,13 @@
 #!/bin/zsh
 
+ZSH_DATA_DIR="$XDG_DATA_HOME"/zsh
+
 link() {
     ln -snfv "$PWD/$1" "$2"
 }
 
 mkalias() {
-    echo "$1" > run/aliases/"$2"
+    echo "$1" > "$ZSH_DATA_DIR"/aliases/"$2"
     echo "@'$1' -> '$2'"
 }
 
@@ -24,15 +26,15 @@ cmd() {
 
 setup_plugin() {
     git submodule update --init plugins/"$1"
-    link plugins/"$1" run/plugins/"$1"
-    [[ -n "$2" ]] && link files/"$2".zsh run/files/"$2".zsh
+    link plugins/"$1" "$ZSH_DATA_DIR"/plugins/"$1"
+    [[ -n "$2" ]] && link files/"$2".zsh "$ZSH_DATA_DIR"/files/"$2".zsh
 }
 
-if [[ -e run ]]; then
-    rm -r run
+if [[ -e "$ZSH_DATA_DIR" ]]; then
+    rm -r "$ZSH_DATA_DIR"
 fi
 
-mkdir -p run/{aliases,funcs,plugins,files}
+mkdir -p "$ZSH_DATA_DIR"/{aliases,funcs,plugins,files}
 
 if [[ -e /etc/os-release ]]; then
     source /etc/os-release
@@ -59,14 +61,14 @@ fi
 
 # functions
 for i in funcs/*; do
-    link "$i" run/"$i"
+    link "$i" "$ZSH_DATA_DIR"/"$i"
 done
 
 # os-specific
 for i in os/*; do
     if os "${i#os/}"; then
         for j in "$i"/*/*; do
-            link "$j" run/"${j#$i/}"
+            link "$j" "$ZSH_DATA_DIR"/"${j#$i/}"
         done
         unset j
     fi
