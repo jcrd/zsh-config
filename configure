@@ -4,6 +4,11 @@ link() {
     ln -snfv "$PWD/$1" "$2"
 }
 
+mkalias() {
+    echo "$1" > run/aliases/"$2"
+    echo "@'$1' -> '$2'"
+}
+
 os() {
     [[ -n "$ID" && "$1" == "$ID" ]]
 }
@@ -35,24 +40,21 @@ else
     echo 'W: /etc/os-release not found' >&2
 fi
 
+source lib/parse-alias.zsh
+
 # aliases
 for i in aliases/*; do
-    link "$i" run/"$i"
+    a=($(< "$i"))
+    if cmd $(parse-alias -d $a); then
+        mkalias "$(parse-alias $a)" "${i#aliases/}"
+    fi
 done
 
 if cmd exa; then
-    echo exa > run/aliases/ls
-    echo l -l --git > run/aliases/ll
+    mkalias 'exa' ls
+    mkalias 'l -l --git' ll
 else
-    echo l -l > run/aliases/ll
-fi
-
-if cmd bat; then
-    echo bat > run/aliases/cat
-fi
-
-if cmd colordiff; then
-    echo colordiff > run/aliases/diff
+    mkalias 'l -l' ll
 fi
 
 # functions

@@ -1,1 +1,1 @@
-rlwrap chicken-csi
+{rlwrap} {chicken-csi}
