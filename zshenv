@@ -14,7 +14,8 @@ path=(
 "$GOPATH/bin"
 $path[@])
 
-export EDITOR=vim
+export EDITOR=nvim
+export SUDO_EDITOR=nvim
 export BROWSER=qutebrowser
 
 export GPG_TTY="$(tty)"
