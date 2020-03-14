@@ -70,11 +70,19 @@ zstyle ':vcs_info:git:*' formats ":%F{green}%b%f%c%u"
 
 add-zsh-hook precmd vcs_info
 
-_ssh_hostname() { [ -n "$SSH_CONNECTION" ] && echo '%B%m%b:' || echo '' }
+_ssh_hostname() {
+    [[ -n "$SSH_CONNECTION" ]] \
+    && echo '%F{blue}%B%m%b:' || echo ''
+}
+
+_toolbox() {
+    [[ -n "$TOOLBOX_PATH" ]] \
+    && echo '%F{magenta}%Btoolbox%b%F{blue}@' || echo ''
+}
 
 function zle-line-init zle-keymap-select {
     local vi_prompt="${${KEYMAP/vicmd/|}/(main|viins)/}"
-    PROMPT="[%F{blue}$(_ssh_hostname)%~%f$vcs_info_msg_0_]
+    PROMPT="[$(_ssh_hostname)$(_toolbox)%F{blue}%~%f$vcs_info_msg_0_]
 %(!.#.>)${vi_prompt:- }"
     zle reset-prompt
 }
