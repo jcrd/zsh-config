@@ -19,6 +19,8 @@ export SUDO_EDITOR=nvim
 export BROWSER=qutebrowser
 
 export GPG_TTY="$(tty)"
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
 export MAKEFLAGS="-j$(nproc)"
 export ABDUCO_CMD="$SHELL"
 export QT_QPA_PLATFORMTHEME=gtk2
