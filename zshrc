@@ -145,7 +145,12 @@ done
 
 # load aliases
 for f in "$ZSH_DATA_DIR"/aliases/*(N); do
-    alias "$f:t"="$(< "$f")"
+    n="$f:t"
+    if [[ "$n" == *.global ]]; then
+        alias -g "${n%.global}"="$(< "$f")"
+    else
+        alias "$n"="$(< "$f")"
+    fi
 done
 
 # load plugins
