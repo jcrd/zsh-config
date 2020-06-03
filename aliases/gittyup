@@ -1,1 +1,1 @@
-{find} . -name .git -type d -prune -printf '%h\n' -execdir {git} status -s \;
+{find} . -name .git -type d -prune -printf '%h ' -execdir {git} status -sb \;
