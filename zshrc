@@ -72,7 +72,7 @@ add-zsh-hook precmd vcs_info
 
 _ssh_hostname() {
     [[ -n "$SSH_CONNECTION" ]] \
-    && echo '%F{blue}%B%m%b:' || echo ''
+    && echo '%U%F{blue}%B%m%b%u:' || echo ''
 }
 
 _toolbox() {
