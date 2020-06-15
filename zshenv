@@ -24,3 +24,5 @@ gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1
 export MAKEFLAGS="-j$(nproc)"
 export ABDUCO_CMD="$SHELL"
 export QT_QPA_PLATFORMTHEME=gtk2
+
+export CHASSIS="$(hostnamectl | awk '$1 == "Chassis:" {print $2}')"
