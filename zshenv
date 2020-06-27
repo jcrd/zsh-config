@@ -25,4 +25,4 @@ export MAKEFLAGS="-j$(nproc)"
 export ABDUCO_CMD="$SHELL"
 export QT_QPA_PLATFORMTHEME=gtk2
 
-export CHASSIS="$(hostnamectl | awk '$1 == "Chassis:" {print $2}')"
+export CHASSIS="$(hostnamectl 2> /dev/null | awk '$1 == "Chassis:" {print $2}')"
