@@ -164,11 +164,6 @@ for f in "$ZSH_DATA_DIR"/files/*.zsh(N); do
 done
 unset f
 
-# recompile
-autoload -Uz zrecompile
-# compile into ~/.zcompdump.zwc if newer
-zrecompile -p -M ~/.zcompdump
-
 # servers
 if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]] && command -v tmux > /dev/null; then
     tmux new-session -A -s ssh
