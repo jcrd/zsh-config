@@ -8,7 +8,6 @@ export GOPATH=~/code/go
 
 typeset -U path
 path=(
-"/usr/lib/ccache/bin"
 "$HOME/.local/bin"
 "$HOME/.luarocks/bin"
 "$GOPATH/bin"
