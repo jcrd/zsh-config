@@ -29,7 +29,7 @@ cmd() {
 setup_plugin() {
     git submodule update --init plugins/"$1"
     link plugins/"$1" "$ZSH_DATA_DIR"/plugins/"$1"
-    [[ -n "$2" ]] && link files/"$2".zsh "$ZSH_DATA_DIR"/files/"$2".zsh
+    [[ -n "$2" ]] && link plugins/"$2".zsh "$ZSH_DATA_DIR"/files/"$2".zsh
 }
 
 if [[ -e "$ZSH_DATA_DIR" ]]; then
