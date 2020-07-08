@@ -94,12 +94,18 @@ _error_symbol() { [ "$TERM" = linux ] && echo '' || echo '↲' }
 
 RPROMPT="%(?..%F{red}%? $(_error_symbol)%f)"
 
-# title
-autoload -Uz add-zsh-hook
-
+# title hook
 if [[ -n "$DISPLAY" ]]; then
     add-zsh-hook precmd (){ print -Pn '\e]2;%n@%M:%~\a' }
 fi
+
+# auto toolbox hook
+add-zsh-hook chpwd (){
+    if [[ -z "$TOOLBOX_PATH" && -e Dockerfile.toolbox ]]; then
+        echo 'Entering toolbox...'
+        tb
+    fi
+}
 
 # keybinds
 export KEYTIMEOUT=1
