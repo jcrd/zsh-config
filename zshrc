@@ -173,3 +173,7 @@ unset f
 if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]] && command -v tmux > /dev/null; then
     tmux new-session -A -s ssh
 fi
+
+if [[ -n "$TOOLBOX_PATH" ]]; then
+    clear
+fi
