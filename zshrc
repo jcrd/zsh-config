@@ -9,6 +9,10 @@ cond-source() {
     done
 }
 
+cmd() {
+    command -v "$1" > /dev/null
+}
+
 # history
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -76,8 +80,11 @@ _ssh_hostname() {
 }
 
 _toolbox() {
-    [[ -n "$TOOLBOX_PATH" ]] \
-    && echo '%F{magenta}%Btoolbox%b%F{blue}@' || echo ''
+    if [[ -n "$TOOLBOX_PATH" ]]; then
+        local c=magenta
+        [[ -n "$PIPENV_ACTIVE" ]] && c=green
+        echo "%F{$c}%Btoolbox%b%F{blue}@" || echo ''
+    fi
 }
 
 function zle-line-init zle-keymap-select {
@@ -103,6 +110,9 @@ fi
 add-zsh-hook chpwd (){
     if [[ -z "$TOOLBOX_PATH" && -e Dockerfile.toolbox ]]; then
         tb
+    fi
+    if [[ -z "$PIPENV_ACTIVE" && -e Pipfile ]] && cmd pipenv; then
+        pipenv shell
     fi
 }
 
@@ -170,7 +180,7 @@ done
 unset f
 
 # servers
-if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]] && command -v tmux > /dev/null; then
+if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]] && cmd tmux; then
     tmux new-session -A -s ssh
 fi
 
