@@ -179,6 +179,8 @@ for f in "$ZSH_DATA_DIR"/files/*.zsh(N); do
 done
 unset f
 
+eval "$(zoxide init zsh)"
+
 # servers
 if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]] && cmd tmux; then
     tmux new-session -A -s ssh
