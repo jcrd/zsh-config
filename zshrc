@@ -111,9 +111,6 @@ add-zsh-hook chpwd (){
     if [[ -z "$TOOLBOX_PATH" && -e Dockerfile.toolbox ]]; then
         tb
     fi
-    if [[ -z "$PIPENV_ACTIVE" && -e Pipfile ]] && cmd pipenv; then
-        pipenv shell
-    fi
 }
 
 # keybinds
@@ -187,4 +184,6 @@ if [[ -z "$TMUX" ]]; then
     elif [[ -n "$SSH_CONNECTION" ]] && cmd tmux; then
         tmux new-session -A -s ssh
     fi
+elif [[ -z "$PIPENV_ACTIVE" && -e Pipfile ]] && cmd pipenv; then
+    pipenv shell
 fi
