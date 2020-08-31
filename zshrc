@@ -179,7 +179,7 @@ for f in "$ZSH_DATA_DIR"/files/*.zsh(N); do
 done
 unset f
 
-eval "$(zoxide init zsh)"
+cmd zoxide && eval "$(zoxide init zsh)"
 
 if [[ -z "$TMUX" ]]; then
     if [[ -n "$TOOLBOX_PATH" ]]; then
