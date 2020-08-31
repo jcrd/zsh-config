@@ -181,11 +181,10 @@ unset f
 
 eval "$(zoxide init zsh)"
 
-# servers
-if [[ -n "$SSH_CONNECTION" && -z "$TMUX" ]] && cmd tmux; then
-    tmux new-session -A -s ssh
-fi
-
-if [[ -n "$TOOLBOX_PATH" ]]; then
-    clear
+if [[ -z "$TMUX" ]]; then
+    if [[ -n "$TOOLBOX_PATH" ]]; then
+        tmux new-session -A -s toolbox
+    elif [[ -n "$SSH_CONNECTION" ]] && cmd tmux; then
+        tmux new-session -A -s ssh
+    fi
 fi
