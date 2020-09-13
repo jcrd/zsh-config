@@ -26,8 +26,12 @@ cmd() {
     return $r
 }
 
-setup_plugin() {
+init_plugin() {
     git submodule update --init plugins/"$1"
+}
+
+setup_plugin() {
+    init_plugin
     link plugins/"$1" "$ZSH_DATA_DIR"/plugins/"$1"
     [[ -n "$2" ]] && link plugins/"$2".zsh "$ZSH_DATA_DIR"/files/"$2".zsh
 }
@@ -36,7 +40,7 @@ if [[ -e "$ZSH_DATA_DIR" ]]; then
     rm -r "$ZSH_DATA_DIR"
 fi
 
-mkdir -p "$ZSH_DATA_DIR"/{aliases,funcs,plugins,files}
+mkdir -p "$ZSH_DATA_DIR"/{aliases,funcs,plugins,files,bin}
 
 if [[ -e /etc/os-release ]]; then
     source /etc/os-release
@@ -80,6 +84,11 @@ unset i
 
 # plugins
 setup_plugin fast-syntax-highlighting fsh
+
+if cmd toolbox; then
+    init_plugin toolboxcutter
+    link plugins/toolboxcutter/tb "$ZSH_DATA_DIR"/bin/tb
+fi
 
 # link to home
 link zshrc ~/.zshrc

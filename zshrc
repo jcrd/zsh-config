@@ -109,7 +109,7 @@ fi
 # auto toolbox hook
 add-zsh-hook chpwd (){
     if [[ -z "$TOOLBOX_PATH" && -e Dockerfile.toolbox ]]; then
-        tb
+        cmd tb && tb
     fi
 }
 

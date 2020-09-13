@@ -9,6 +9,7 @@ export GOPATH=~/code/go
 typeset -U path
 path=(
 "$HOME/.local/bin"
+"$XDG_DATA_HOME/zsh/bin"
 "$HOME/.luarocks/bin"
 "$GOPATH/bin"
 $path[@])

@@ -1,3 +1,6 @@
 [submodule "plugins/fast-syntax-highlighting"]
 	path = plugins/fast-syntax-highlighting
 	url = https://github.com/zdharma/fast-syntax-highlighting.git
+[submodule "plugins/toolboxcutter"]
+	path = plugins/toolboxcutter
+	url = https://github.com/jcrd/toolboxcutter
