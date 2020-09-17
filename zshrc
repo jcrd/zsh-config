@@ -106,13 +106,6 @@ if [[ -n "$DISPLAY" ]]; then
     add-zsh-hook precmd (){ print -Pn '\e]2;%n@%M:%~\a' }
 fi
 
-# auto toolbox hook
-add-zsh-hook chpwd (){
-    if [[ -z "$TOOLBOX_PATH" && -e Dockerfile.toolbox ]]; then
-        cmd tb && tb
-    fi
-}
-
 # keybinds
 export KEYTIMEOUT=1
 
@@ -181,6 +174,7 @@ cmd zoxide && eval "$(zoxide init zsh)"
 if [[ -z "$TMUX" ]]; then
     if [[ -n "$TOOLBOX_PATH" ]]; then
         tmux new-session -A -s toolbox
+        exit $?
     elif [[ -n "$SSH_CONNECTION" ]] && cmd tmux; then
         tmux new-session -A -s ssh
     fi
