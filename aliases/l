@@ -1,1 +1,1 @@
-ls --color=auto --group-directories-first
+ls --color=auto --group-directories-first -h
