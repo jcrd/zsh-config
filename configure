@@ -60,8 +60,10 @@ done
 
 if cmd exa; then
     mkalias 'exa' ls
+    mkalias 'ls --color=auto --group-directories-first' l
     mkalias 'l -l --git' ll
 else
+    mkalias 'ls --color=auto --group-directories-first -h' l
     mkalias 'l -l' ll
 fi
 
