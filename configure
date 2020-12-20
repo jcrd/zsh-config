@@ -87,11 +87,6 @@ unset i
 # plugins
 setup_plugin fast-syntax-highlighting fsh
 
-if cmd toolbox; then
-    init_plugin toolboxcutter
-    link plugins/toolboxcutter/tb "$ZSH_DATA_DIR"/bin/tb
-fi
-
 # link to home
 link zshrc ~/.zshrc
 link zshenv ~/.zshenv
