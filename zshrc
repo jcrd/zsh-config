@@ -173,7 +173,7 @@ cmd zoxide && eval "$(zoxide init zsh)"
 
 if [[ -z "$TMUX" ]]; then
     if [[ -n "$TOOLBOX_PATH" ]]; then
-        tmux new-session -A -s toolbox
+        tmux new-session -s "toolbox($PWD)"
         exit $?
     elif [[ -n "$SSH_CONNECTION" ]] && cmd tmux; then
         tmux new-session -A -s ssh
