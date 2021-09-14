@@ -133,6 +133,8 @@ zle -N edit-command-line
 
 bindkey '^E' edit-command-line
 
+bindkey -s '^X' 'tb\n'
+
 # located in /usr/share/fzf/shell on fedora
 cond-source /usr/share/fzf/{,shell/}key-bindings.zsh
 
