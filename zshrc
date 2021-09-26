@@ -3,6 +3,11 @@
 export ZSH_CONFIG_DIR=~/.config/zsh
 export ZSH_DATA_DIR="$XDG_DATA_HOME"/zsh
 
+export TOOLBOX_SSHFILE=.ssh.toolbox
+
+[[ -n "$TOOLBOX_PATH" && -e "$TOOLBOX_SSHFILE" ]] && \
+    eval "$(< "$TOOLBOX_SSHFILE")"
+
 cond-source() {
     for f in $@; do
         [[ -e "$f" ]] && { source "$f"; break }
@@ -76,7 +81,7 @@ add-zsh-hook precmd vcs_info
 
 _ssh_hostname() {
     [[ -n "$SSH_CONNECTION" ]] \
-    && echo '%U%F{blue}%B%m%b%u:' || echo ''
+    && echo "%U%F{blue}%B$HOSTNAME%b%u:" || echo ''
 }
 
 _toolbox() {
