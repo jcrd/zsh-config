@@ -177,6 +177,7 @@ done
 unset f
 
 cmd zoxide && eval "$(zoxide init zsh)"
+cmd direnv && eval "$(direnv hook zsh)"
 
 if [[ -z "$TMUX" ]]; then
     if [[ -n "$SSH_CONNECTION" ]] && cmd tmux; then
