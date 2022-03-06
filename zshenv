@@ -14,6 +14,7 @@ path=(
 "$GOPATH/bin"
 $path[@])
 
+export VISUAL='code -w'
 export EDITOR=nvim
 export SUDO_EDITOR=nvim
 export BROWSER=qutebrowser
