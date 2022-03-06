@@ -17,7 +17,7 @@ $path[@])
 export VISUAL='code -w'
 export EDITOR=nvim
 export SUDO_EDITOR=nvim
-export BROWSER=qutebrowser
+export BROWSER=firefox
 
 unset SSH_AGENT_PID
 if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
