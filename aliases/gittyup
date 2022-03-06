@@ -1,1 +1,0 @@
-{find} . -name .git -type d -prune -printf '%h ' -execdir {git} status -sb \;
