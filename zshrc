@@ -79,22 +79,30 @@ zstyle ':vcs_info:git:*' formats ":%F{green}%b%f%c%u"
 
 add-zsh-hook precmd vcs_info
 
+add-zsh-hook -Uz chpwd (){
+    if [[ -z "$VIRTUAL_ENV" ]] && [[ -e .venv/bin/activate ]]; then
+        source .venv/bin/activate
+    fi
+}
+
 _ssh_hostname() {
     [[ -n "$SSH_CONNECTION" ]] \
     && echo "%U%F{blue}%B$HOSTNAME%b%u:" || echo ''
 }
 
 _toolbox() {
-    if [[ -n "$TOOLBOX_PATH" ]]; then
-        local c=magenta
-        [[ -n "$PIPENV_ACTIVE" ]] && c=green
-        echo "%F{$c}%Btoolbox%b%F{blue}@" || echo ''
-    fi
+    [[ -n "$TOOLBOX_PATH" ]] \
+    && echo "%F{magenta}%Btoolbox%b%F{blue}@" || echo ''
+}
+
+_python_venv() {
+    [[ -n "$VIRTUAL_ENV_PROMPT" ]] \
+    && echo "%F{cyan}$VIRTUAL_ENV_PROMPT" || echo ''
 }
 
 function zle-line-init zle-keymap-select {
     local vi_prompt="${${KEYMAP/vicmd/|}/(main|viins)/}"
-    PROMPT="[$(_ssh_hostname)$(_toolbox)%F{blue}%~%f$vcs_info_msg_0_]
+    PROMPT="[$(_ssh_hostname)$(_toolbox)$(_python_venv)%F{blue}%~%f$vcs_info_msg_0_]
 %(!.#.>)${vi_prompt:- }"
     zle reset-prompt
 }
@@ -179,10 +187,6 @@ unset f
 cmd zoxide && eval "$(zoxide init zsh)"
 cmd direnv && eval "$(direnv hook zsh)"
 
-if [[ -z "$TMUX" ]]; then
-    if [[ -n "$SSH_CONNECTION" ]] && cmd tmux; then
-        tmux new-session -A -s ssh
-    fi
-elif [[ -z "$PIPENV_ACTIVE" && -e Pipfile ]] && cmd pipenv; then
-    pipenv shell
+if [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]] && cmd tmux; then
+    tmux new-session -A -s ssh
 fi
