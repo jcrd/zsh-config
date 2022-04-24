@@ -19,16 +19,20 @@ export EDITOR=nvim
 export SUDO_EDITOR=nvim
 export BROWSER=firefox
 
-unset SSH_AGENT_PID
-if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
-  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-fi
-
-export GPG_TTY="$(tty)"
-gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1
-
 export MAKEFLAGS="-j$(nproc)"
 export ABDUCO_CMD="$SHELL"
 export QT_QPA_PLATFORMTHEME=gtk2
 
 export CHASSIS="$(hostnamectl 2> /dev/null | awk '$1 == "Chassis:" {print $2}')"
+
+
+unset SSH_AGENT_PID
+if [[ -n "$DESKTOP_SESSION" && $(command -v gnome-keyring-daemon) ]]; then
+    eval $(gnome-keyring-daemon --start)
+    export SSH_AUTH_SOCK
+elif [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]]; then
+    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+fi
+
+export GPG_TTY="$(tty)"
+gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1
