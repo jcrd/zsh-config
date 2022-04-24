@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+xclip -selection clipboard -t image/png "$1"
