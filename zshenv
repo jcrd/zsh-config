@@ -17,7 +17,6 @@ $path[@])
 export VISUAL='code -w'
 export EDITOR=nvim
 export SUDO_EDITOR=nvim
-export BROWSER=firefox
 
 export MAKEFLAGS="-j$(nproc)"
 export ABDUCO_CMD="$SHELL"
