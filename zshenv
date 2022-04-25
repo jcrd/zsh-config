@@ -10,6 +10,7 @@ typeset -U path
 path=(
 "$HOME/.local/bin"
 "$HOME/.luarocks/bin"
+"$HOME/.flutter/bin"
 "$GOPATH/bin"
 $path[@])
 
