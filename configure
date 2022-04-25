@@ -40,7 +40,7 @@ if [[ -e "$ZSH_DATA_DIR" ]]; then
     rm -r "$ZSH_DATA_DIR"
 fi
 
-mkdir -p "$ZSH_DATA_DIR"/{aliases,funcs,plugins,files,bin}
+mkdir -p "$ZSH_DATA_DIR"/{aliases,funcs,plugins,files}
 
 if [[ -e /etc/os-release ]]; then
     source /etc/os-release
