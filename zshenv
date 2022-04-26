@@ -11,6 +11,7 @@ path=(
 "$HOME/.local/bin"
 "$HOME/.luarocks/bin"
 "$HOME/.flutter/bin"
+"$HOME/.pub-cache/bin"
 "$GOPATH/bin"
 $path[@])
 
