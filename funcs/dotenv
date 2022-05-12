@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+[[ -e .env ]] || return 1
+# See: https://www.cicoria.com/loading-env-dotenv-using-bash-or-zsh/
+set -a
+source .env
+set +a
