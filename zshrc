@@ -87,12 +87,12 @@ add-zsh-hook -Uz chpwd (){
 
 _ssh_hostname() {
     [[ -n "$SSH_CONNECTION" ]] \
-    && echo "%U%F{blue}%B$HOSTNAME%b%u:" || echo ''
+    && echo "%F{blue}%B@$HOSTNAME%b " || echo ''
 }
 
 _toolbox() {
     [[ -n "$TOOLBOX_PATH" ]] \
-    && echo "%F{magenta}%Btoolbox%b%F{blue}@" || echo ''
+    && echo "%F{magenta}(toolbox) " || echo ''
 }
 
 _python_venv() {
@@ -102,7 +102,7 @@ _python_venv() {
 
 function zle-line-init zle-keymap-select {
     local vi_prompt="${${KEYMAP/vicmd/|}/(main|viins)/}"
-    PROMPT="[$(_ssh_hostname)$(_toolbox)$(_python_venv)%F{blue}%~%f$vcs_info_msg_0_]
+    PROMPT="$(_ssh_hostname)$(_toolbox)$(_python_venv)%F{blue}%~%f$vcs_info_msg_0_
 %(!.#.>)${vi_prompt:- }"
     zle reset-prompt
 }
