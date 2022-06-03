@@ -142,9 +142,14 @@ zle -N self-insert-no-autoremove
 bindkey '|' self-insert-no-autoremove
 
 autoload -Uz edit-command-line
-zle -N edit-command-line
 
-bindkey '^E' edit-command-line
+nvim-command-line() {
+    local VISUAL=nvim
+    edit-command-line
+}
+zle -N nvim-command-line
+
+bindkey '^E' nvim-command-line
 
 bindkey -s '^X' 'tb\n'
 
