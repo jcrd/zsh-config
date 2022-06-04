@@ -195,3 +195,7 @@ cmd direnv && eval "$(direnv hook zsh)"
 if [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]] && cmd tmux; then
     tmux new-session -A -s ssh
 fi
+
+if [[ -n "$TOOLBOX_PATH" ]]; then
+    export VISUAL="$EDITOR"
+fi
