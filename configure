@@ -63,16 +63,6 @@ for i in funcs/*; do
     link "$i" "$ZSH_DATA_DIR"/"$i"
 done
 
-# os-specific
-for i in os/*; do
-    if os "${i#os/}"; then
-        for j in "$i"/*/*; do
-            link "$j" "$ZSH_DATA_DIR"/"${j#$i/}"
-        done
-        unset j
-    fi
-done
-
 unset i
 
 # plugins

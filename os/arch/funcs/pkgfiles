@@ -1,9 +1,0 @@
-#!/bin/zsh
-
-if [[ $# -eq 0 ]]; then
-    echo 'usage: pkgfiles PACKAGE [search]' >&2
-elif [[ $# -eq 1 ]]; then
-    pacman -Qql "$1"
-else
-    pacman -Qql "$1" | grep "$2"
-fi

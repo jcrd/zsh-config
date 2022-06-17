@@ -1,1 +1,0 @@
-pacman -Fy > /dev/null && pacman -Fx
