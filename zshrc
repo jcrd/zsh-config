@@ -79,11 +79,13 @@ zstyle ':vcs_info:git:*' formats ":%F{green}%b%f%c%u"
 
 add-zsh-hook precmd vcs_info
 
-add-zsh-hook -Uz chpwd (){
+activate_venv() {
     if [[ -z "$VIRTUAL_ENV" ]] && [[ -e .venv/bin/activate ]]; then
         source .venv/bin/activate
     fi
 }
+
+add-zsh-hook -Uz chpwd activate_venv
 
 _ssh_hostname() {
     [[ -n "$SSH_CONNECTION" ]] \
@@ -198,4 +200,5 @@ fi
 
 if [[ -n "$TOOLBOX_PATH" ]]; then
     export VISUAL="$EDITOR"
+    activate_venv
 fi
