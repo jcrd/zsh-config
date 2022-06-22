@@ -87,6 +87,14 @@ activate_venv() {
 
 add-zsh-hook -Uz chpwd activate_venv
 
+toolbox_enter() {
+    if [[ -n "$TOOLBOX_ENTER" ]] && cmd tb; then
+        tb
+    fi
+}
+
+add-zsh-hook -Uz chpwd toolbox_enter
+
 _ssh_hostname() {
     [[ -n "$SSH_CONNECTION" ]] \
     && echo "%F{blue}%B@$HOSTNAME%b " || echo ''
