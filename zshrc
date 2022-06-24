@@ -65,6 +65,9 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
+# disable highlighting pasted text
+zle_highlight+=(paste:none)
+
 # prompt
 setopt prompt_subst
 
