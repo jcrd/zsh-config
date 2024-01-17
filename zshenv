@@ -16,8 +16,8 @@ path=(
 $path[@])
 
 export VISUAL='code -w'
-export EDITOR=nvim
-export SUDO_EDITOR=nvim
+export EDITOR=vi
+export SUDO_EDITOR=vi
 
 export MAKEFLAGS="-j$(nproc)"
 export ABDUCO_CMD="$SHELL"
