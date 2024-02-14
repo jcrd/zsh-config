@@ -13,6 +13,7 @@ path=(
 "$HOME/.flutter/bin"
 "$HOME/.pub-cache/bin"
 "$GOPATH/bin"
+"/snap/bin"
 $path[@])
 
 export VISUAL='code -w'
