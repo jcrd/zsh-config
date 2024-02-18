@@ -83,8 +83,8 @@ zstyle ':vcs_info:git:*' formats ":%F{green}%b%f%c%u"
 add-zsh-hook precmd vcs_info
 
 activate_venv() {
-    if [[ -z "$VIRTUAL_ENV" ]] && [[ -e bin/activate ]]; then
-        source bin/activate
+    if [[ -z "$VIRTUAL_ENV" ]] && [[ -e .venv/bin/activate ]]; then
+        source .venv/bin/activate
     fi
 }
 
