@@ -168,7 +168,7 @@ bindkey -s '^X' 'tb\n'
 
 # located in /usr/share/fzf/shell on fedora
 # located in /usr/share/doc/fzf/examples on debian
-cond-source /usr/share/{,doc/}fzf/{,shell,examples/}key-bindings.zsh
+cond-source /usr/share/{,doc/}fzf/{,shell/,examples/}key-bindings.zsh
 
 # make fpath unique
 typeset -U fpath
