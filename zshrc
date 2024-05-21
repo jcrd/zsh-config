@@ -156,13 +156,13 @@ bindkey '|' self-insert-no-autoremove
 
 autoload -Uz edit-command-line
 
-nvim-command-line() {
-    local VISUAL=nvim
+vi-command-line() {
+    local VISUAL=vi
     edit-command-line
 }
-zle -N nvim-command-line
+zle -N vi-command-line
 
-bindkey '^E' nvim-command-line
+bindkey '^E' vi-command-line
 
 bindkey -s '^X' 'tb\n'
 
@@ -214,3 +214,10 @@ if [[ -n "$TOOLBOX_PATH" ]]; then
     export VISUAL="$EDITOR"
     activate_venv
 fi
+
+# bun completions
+[ -s "/home/james/.bun/_bun" ] && source "/home/james/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
