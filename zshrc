@@ -54,6 +54,9 @@ setopt glob_complete
 # insert first match on ambiguous completion
 # setopt menu_complete
 
+cond-source ~/.asdf/asdf.sh
+cond-source ~/.asdf/plugins/golang/set-env.zsh
+
 autoload -Uz compinit
 compinit -i
 
