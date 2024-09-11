@@ -218,6 +218,16 @@ if [[ -n "$TOOLBOX_PATH" ]]; then
     activate_venv
 fi
 
+typeset -U path
+path=(
+"$HOME/.local/bin"
+"$HOME/.luarocks/bin"
+"$HOME/.flutter/bin"
+"$HOME/.pub-cache/bin"
+"$GOBIN"
+"/snap/bin"
+$path[@])
+
 # bun completions
 [ -s "/home/james/.bun/_bun" ] && source "/home/james/.bun/_bun"
 
