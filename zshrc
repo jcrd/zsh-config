@@ -3,11 +3,6 @@
 export ZSH_CONFIG_DIR=~/.config/zsh
 export ZSH_DATA_DIR="$XDG_DATA_HOME"/zsh
 
-export TOOLBOX_SSHFILE=.ssh.toolbox
-
-[[ -n "$TOOLBOX_PATH" && -e "$TOOLBOX_SSHFILE" ]] && \
-    eval "$(< "$TOOLBOX_SSHFILE")"
-
 cond-source() {
     for f in $@; do
         [[ -e "$f" ]] && { source "$f"; break }
@@ -93,22 +88,9 @@ activate_venv() {
 
 add-zsh-hook -Uz chpwd activate_venv
 
-toolbox_enter() {
-    if [[ -n "$TOOLBOX_ENTER" ]] && cmd tb; then
-        tb
-    fi
-}
-
-add-zsh-hook -Uz chpwd toolbox_enter
-
 _ssh_hostname() {
     [[ -n "$SSH_CONNECTION" ]] \
     && echo "%F{blue}%B@$HOSTNAME%b " || echo ''
-}
-
-_toolbox() {
-    [[ -n "$TOOLBOX_PATH" ]] \
-    && echo "%F{magenta}(toolbox) " || echo ''
 }
 
 _python_venv() {
@@ -118,7 +100,7 @@ _python_venv() {
 
 function zle-line-init zle-keymap-select {
     local vi_prompt="${${KEYMAP/vicmd/|}/(main|viins)/}"
-    PROMPT="$(_ssh_hostname)$(_toolbox)$(_python_venv)%F{blue}%~%f$vcs_info_msg_0_
+    PROMPT="$(_ssh_hostname)$(_python_venv)%F{blue}%~%f$vcs_info_msg_0_
 %(!.#.>)${vi_prompt:- }"
     zle reset-prompt
 }
@@ -213,11 +195,6 @@ if [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]] && cmd tmux; then
     tmux new-session -A -s ssh
 fi
 
-if [[ -n "$TOOLBOX_PATH" ]]; then
-    export VISUAL="$EDITOR"
-    activate_venv
-fi
-
 typeset -U path
 path=(
 "$HOME/.local/bin"
@@ -227,10 +204,3 @@ path=(
 "$GOBIN"
 "/snap/bin"
 $path[@])
-
-# bun completions
-[ -s "/home/james/.bun/_bun" ] && source "/home/james/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
