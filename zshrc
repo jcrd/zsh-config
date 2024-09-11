@@ -98,9 +98,14 @@ _python_venv() {
     && echo "%F{cyan}$VIRTUAL_ENV_PROMPT" || echo ''
 }
 
+_distrobox_hostname() {
+    [[ -n "$DISTROBOX_ENTER_PATH" ]] \
+    && echo "%F{magenta}[$HOSTNAME] " || echo ''
+}
+
 function zle-line-init zle-keymap-select {
     local vi_prompt="${${KEYMAP/vicmd/|}/(main|viins)/}"
-    PROMPT="$(_ssh_hostname)$(_python_venv)%F{blue}%~%f$vcs_info_msg_0_
+    PROMPT="$(_ssh_hostname)$(_distrobox_hostname)$(_python_venv)%F{blue}%~%f$vcs_info_msg_0_
 %(!.#.>)${vi_prompt:- }"
     zle reset-prompt
 }
